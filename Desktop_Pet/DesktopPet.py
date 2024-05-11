@@ -13,7 +13,7 @@ dakota_lines_idle = {
     6: "I tak showas",
     7: "Can I hav some fud?"
 }
-impath = 'C:\\Users\\Mia Aragon\\Desktop\\Desktop_Pet\\img\\'
+impath = 'C:\\Users\\trach\\Documents\\GitHub\\Desktop-Pet\\Desktop_Pet\\img\\'
 
 
 def dakota_speak(lines):
@@ -27,11 +27,15 @@ def hide_message():
 def dakota_close(event):
     window.destroy()
 
-def update_gif(label, gif_path):
+def update_gif(label, gif_path, direction=None):
+    global pos
+
     # Cancel previous animation loop
-    label.after_cancel(label.after_idle)
+    if hasattr(label, 'after_id'):
+        label.after_cancel(label.after_id)
     
-    gif = Image.open(gif_path)
+    gif = Image.open(gif_path)    
+
     frames = []
 
     try:
@@ -66,7 +70,7 @@ def handle_event():
 
     update_gif(label, new_event_path)
 
-    delay = random.randint(10000, 15000)
+    delay = random.randint(5000, 8000)
     window.after(delay, handle_event)
 
 
@@ -81,7 +85,7 @@ label.pack()
 
 label.initial_image = initial_image
 
-dakota_label = tk.Label(window, text="", font=("Arial, 12"), bg="grey", fg="white", bd=0, highlightthickness=0)
+dakota_label = tk.Label(window, text="", font=("Arial, 12"), fg="black", bd=0, highlightthickness=0)
 dakota_label.pack(pady=20)
 
 
