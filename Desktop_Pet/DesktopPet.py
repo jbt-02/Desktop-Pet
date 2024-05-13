@@ -140,7 +140,7 @@ initial_image = ImageTk.PhotoImage(initial_image)
 
 label = tk.Label(window, image=initial_image, bg="white", text="", font=("Arial, 12"), bd=0, highlightthickness=0)
 
-label.pack(side=tk.BOTTOM)
+label.pack()
 
 label.initial_image = initial_image
 
