@@ -58,7 +58,7 @@ def dakota_speak(lines):
     speach_window = tk.Toplevel(master=window)
     speach_window.overrideredirect(True)  # Hide title bar and border
 
-    speach_window.geometry("300x100")
+    speach_window.geometry("250x100")
     speach_window.attributes("-topmost", True)
 
     line = lines[random.randint(0,7)]
@@ -125,7 +125,11 @@ def handle_event(root):
     else:
         update_gif(root, label, new_event_path)        
 
-    delay = random.randint(5000, 8000)
+    if new_random_event == "Dakota-Sleeping.gif":
+        delay = random.randint(30000, 45000)
+    else:
+        delay = random.randint(5000, 8000)
+
     window.after(delay, lambda: handle_event(root))
 
 
