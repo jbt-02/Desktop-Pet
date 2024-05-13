@@ -11,7 +11,8 @@ dakota_lines_idle = {
     4: "Im just a pwincess gwrl",
     5: "I wove you Mia",
     6: "I tak showas",
-    7: "Can I hav some fud?"
+    7: "Can I hav some fud?",
+    8: "Happy twenty fost bifday mia!"
 }
 impath = 'C:\\Users\\trach\\Documents\\GitHub\\Desktop-Pet\\Desktop_Pet\\img\\'
 
@@ -37,19 +38,33 @@ def set_move_screen_position(root, direction=None):
     screen_width, screen_height = get_screen_size(root)
     global x_coordinate, y_coordinate
     if direction == "right" and x_coordinate < screen_width - 400:
-        x_coordinate += 10
+        x_coordinate += 15
         root.geometry(f"+{x_coordinate}+{y_coordinate}")
     elif direction == "left" and x_coordinate > 0:
-        x_coordinate -= 10
+        x_coordinate -= 15
         root.geometry(f"+{x_coordinate}+{y_coordinate}")
 
-def dakota_speak(lines):
-    line = lines[random.randint(0,7)]
-    dakota_label.config(text=line)
-    window.after(3000, hide_message)
+def set_speak_screen_position(spk_win):
+    global x_coordinate, y_coordinate
+    spk_win.geometry(f"+{x_coordinate}+{y_coordinate}")
 
-def hide_message():
-    dakota_label.config(text="")
+    if spk_win.winfo_exists():
+        spk_win.after(100, lambda: set_speak_screen_position(spk_win))
+
+def dakota_speak(lines):
+    speach_window = tk.Toplevel(master=window)
+    speach_window.overrideredirect(True)  # Hide title bar and border
+
+    speach_window.geometry("300x100")
+    speach_window.attributes("-topmost", True)
+
+    line = lines[random.randint(0,7)]
+    dakota_label = tk.Label(speach_window, text=line, font=("Arial, 12"), fg="black", anchor="center", justify="center")
+    dakota_label.pack(expand=True, fill="both")
+
+    set_speak_screen_position(speach_window)
+
+    speach_window.after(3000, speach_window.destroy)
 
 def dakota_close(event):
     window.destroy()
@@ -122,13 +137,9 @@ initial_image = ImageTk.PhotoImage(initial_image)
 
 label = tk.Label(window, image=initial_image, bg="white", text="", font=("Arial, 12"), bd=0, highlightthickness=0)
 
-label.pack()
+label.pack(side=tk.BOTTOM)
 
 label.initial_image = initial_image
-
-dakota_label = tk.Label(window, text="", font=("Arial, 12"), fg="black", bd=0, highlightthickness=0)
-dakota_label.pack(pady=20)
-
 
 window.bind("<Button-1>", lambda event : dakota_speak(dakota_lines_idle))
 window.bind("<Button-3>", dakota_close)
