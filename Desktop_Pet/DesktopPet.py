@@ -14,7 +14,10 @@ dakota_lines_idle = {
     7: "Can I hav some fud?",
     8: "Happy twenty fost bifday mia!"
 }
-impath = 'C:\\Users\\trach\\Documents\\GitHub\\Desktop-Pet\\Desktop_Pet\\img\\'
+
+script_dir = os.path.dirname(__file__)
+rel_dir = "img/"
+impath = os.path.join(script_dir, rel_dir)
 
 x_coordinate, y_coordinate = 0, 0
 
